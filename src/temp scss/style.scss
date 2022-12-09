@@ -1,0 +1,612 @@
+@use "keyframe.scss" as *;
+@use "mixin.scss" as *;
+@use "var.scss" as *;
+
+body{
+    margin: 0px;
+    overflow-x: hidden;
+    p{
+        margin: 0px;
+        padding: 0px;
+        font-size: 1.2rem;
+        font-family: "Signika Negative";
+        color: var(--textColor);
+    }
+
+    h2{
+        text-align: center;
+        font-size: 2.5rem;
+        color: #222;
+        font-family: "Marhey";
+        text-shadow: 1px 1px 2px var(--shadowTxt);
+    }
+
+    h3{
+        color: var(--primaryColor);
+        text-align: center;
+        font-size: 1.5rem;
+        font-family: "Signika Negative";
+        text-shadow: 1px 1px 2px var(--shadowTxt);
+    }
+
+    li{
+        font-size: 1.2rem;
+        font-family: "Signika Negative";
+        color: var(--textColor);
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
+    abbr{
+        text-decoration: none;
+        font-style: italic;
+
+        transition-property: color;
+        transition-duration: 0.7s;
+        transition-timing-function: ease-out;
+    }
+
+    abbr:hover{
+        color: var(--primaryColor);
+    }
+
+    //marche pas
+    // Firefox
+    scrollbar-color: var(--secondaryColor);
+
+    //Autre
+    ::-webkit-scrollbar-thumb{
+        color: var(--secondaryColor);
+    }
+}
+
+
+/*=============================================
+=            HEADER            =
+=============================================*/
+
+header{
+    /* Overflow */
+    overflow: hidden;
+    /* postition */
+    position: relative;
+    /* dimensions */
+    height: 105vh;
+    /* background */
+    background-image: linear-gradient(25deg, var(--secondaryColor) 5%, var(--primaryColor) 95%);
+
+    h1{
+        text-align: center;
+        font-size: 4rem;
+        color: var(--color);
+        font-family: "Signika Negative";
+        align-self: center;
+        margin-bottom: 0px;
+        text-shadow: 1px 1px 4px var(--shadowTxt);
+    }
+
+    h2{
+        color: var(--color);
+        font-size: 2rem;
+    }
+
+    >div{
+        /* dimension */
+        height: 20vh;
+        width: 100%;
+        /* background */
+        background-color: var(--color);
+    }
+
+    #leftPart{
+        /* position */
+        position: absolute;
+        bottom: 0px;
+        left: -20%;
+        /* border */
+        border-top-right-radius: 100%;
+    }
+    
+    #rightPart{
+        /* position */
+        position: absolute;
+        bottom: 0px;
+        left: 70%;
+        /* border */
+        border-top-left-radius: 100%;
+    }
+
+    #picker{
+        background-color: var(--color);
+     }
+
+     hr{
+        width: 60%;
+        margin: auto;
+        color: var(--color);
+     }
+}
+
+header nav{
+    position: fixed;
+    width: 100%;
+    /* valeur par défault: flexWrap = wrap */
+    @include Flex(row, flex-start, flex-start, nowrap);
+    z-index: 3;
+    left: 0px;
+    top: 0px;
+
+    h2{
+        margin: 0px;
+        font-size: 1em;
+        color: var(--secondaryColor);
+        display: none;
+    }
+
+    h2+img, #picker img{
+        display: inline;
+        height: 1.8em;
+    }
+
+    a, #picker{
+        text-decoration: none;
+        width: 4em;
+        height: 8vh;
+        border-bottom-right-radius: 50px;
+        border-bottom-left-radius: 50px;
+        background-color: var(--color);
+        box-shadow: 1px 0px 5px var(--textColor);
+        box-sizing: border-box;
+        padding: 0px;
+        margin: 0px;
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(row, center , center, nowrap);
+        overflow: hidden;
+        /* Transition */
+        transition-property: width, height, flex-grow;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+        transition-delay: 0s;
+    }
+
+    #picker{
+        section{
+            /* valeur par défault: flexWrap = wrap */
+            @include Flex(column, center, center, nowrap);
+            display: none;
+            position: relative;
+
+            width: 100%;
+            height: 100%;
+        }
+
+        form{
+            /* valeur par défault: flexWrap = wrap */
+            @include Flex(column, space-evenly, center, nowrap);
+        }
+        form div{
+            /* valeur par défault: flexWrap = wrap */
+            @include Flex(row, space-evenly, center, nowrap);
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        form label{
+            background-color: #333;
+            color: var(--color);
+            width: 80px;
+            margin-left: 5px;
+            margin-right: 5px;
+            border-radius: 5px;
+            font-family: "Marhey";
+            text-align: center;
+        }
+        form label:active{
+            background-color: #555;
+        }
+        form input{
+            appearance: none;
+            position: absolute;
+        }
+
+        button{
+            margin-top: 5px;
+            background-color: #333;
+            color: var(--color);
+            font-family: "Marhey";
+            border: none;
+            border-radius: 5px;
+        }
+        button:active{
+            background-color: #555;
+        }
+
+    }
+
+    #colorView{
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        border: 2px dotted var(--textColor);
+        background-image: linear-gradient(45deg, var(--pickerCColor) 5%, var(--pickerColor) 95%);
+    }
+    #hsl{
+        background: linear-gradient(90deg, hsl(0, 100%, 50%) 0%, hsl(60, 100%, 50%) 17%, hsl(120, 100%, 50%) 33%, hsl(180, 100%, 50%) 50%, hsl(240, 100%, 50%) 66%, hsl(300, 100%, 50%) 83%, hsl(360, 100%, 50%) 100%);
+        height: 0.6em;
+        border-radius: 5px;
+    }
+    #hsl::-moz-range-thumb{
+        background-color: var(--teinteThumbColor);
+        border-color: var(--color);
+        border-width: 1px;
+        box-shadow: inset 1px 1px 2px #EEE;
+    }
+    #hsl::-moz-range-thumb:active{
+        box-shadow: none;
+    }
+    #hsl::-webkit-slider-thumb{
+        background-color: var(--teinteThumbColor);
+        border-color: var(--color);
+        border-width: 1px;
+        box-shadow: inset 1px 1px 2px #EEE;
+    }
+    #hsl::-webkit-slider-thumb:active{
+        box-shadow: none;
+    }
+
+    a:focus{
+        flex-grow: 1;
+    }
+
+    a:focus>h2{
+        display: block;
+    }
+
+    #picker:hover{
+        border: 1px solid black;
+    }
+}
+
+/*=============================================
+=            MAIN            =
+=============================================*/
+main{
+    position: relative;
+    margin: 0px;
+
+    >section:not(#competences, #contact, #labo){
+        width: 70%;
+        margin: auto;
+    }
+}
+
+#competences{
+    width: 100%;
+    height: 40em;
+    color: var(--primaryColor);
+    position: relative;
+    background-color: var(--color);
+    /* valeur par défault: flexWrap = wrap */
+    @include Flex(column, flex-start, stretch, nowrap);
+    border-radius: 0.2em;
+    box-shadow: 2px 3px 10px #111;
+}
+
+#competences>:last-child{
+    position: absolute;
+    z-index: -1;
+    width: 145%;
+    height: 100%;
+    top: 0;
+    left: -22%;
+    background-image: linear-gradient(to top, var(--secondaryColor) 50%, var(--primaryColor) 80%);
+    clip-path: content-box ellipse(100% 70% at 50% 100%);
+}
+
+#carroussel{
+    position: relative;
+    height: 95%;
+    overflow: hidden;
+    z-index: 2;
+
+    .slidein{
+        animation-name: SlideIn;
+        animation-timing-function: ease-in;
+        animation-duration: 0.5s;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+    }
+
+    .slideout{
+        animation-name: SlideOut;
+        animation-timing-function: ease-in;
+        animation-duration: 0.5s;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+    }
+
+    >article{
+        visibility: hidden;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    >article:first-child{
+        visibility: visible;
+    }
+
+    nav{
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(row, center, center, nowrap);
+        width: 100%;
+        position: absolute;
+        bottom: 1em;
+    }
+
+    nav span{
+        width: 10px;
+        height: 10px;
+
+        background-color: var(--color);
+    }
+}
+
+.clean{
+    clear: both;
+}
+
+#apropos{
+    background-color: var(--color);
+    padding-bottom: 50px;
+
+    div{
+        position: relative;
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(column, start, start, nowrap);
+    }
+
+    img{
+        width: 50%;
+        background-color: var(--primaryColor);
+        border-radius: 100%;
+        align-self: center;
+    }
+
+    p{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-indent: 5%;
+    }
+}
+
+#contact{
+    background-image: linear-gradient(to bottom, var(--secondaryColor) 10%, #444 90%);
+
+    >h2{
+        margin-top: 0px;
+        padding-top: 40px;
+        color: #444;
+    }
+}
+
+#galaxy{
+    height: 100vw;
+    position: relative;
+}
+
+.orbit{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    section{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        border: 1px solid var(--color);
+        box-shadow: 0 0 7px #111;
+        box-sizing: border-box;
+    }
+}
+
+.orbit:not(#sun){
+    border: 2px dotted var(--color);
+}
+
+.orbit:not(#github, #sun){
+    background-color: var(--secondaryColor);
+    animation-name: OrbitCircle;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.orbit:not(#github){
+    box-shadow: 0 0 5px #111;
+}
+
+#sun{
+    z-index: 5;
+    width: 4vw;
+    height: 4vw;
+    border-radius: 4vw;
+    top: 48vw;
+    left: 48vw;
+    background-color: var(--color);
+}
+
+#email{
+    z-index: 4;
+    width: 20vw;
+    height: 20vw;
+    border-radius: 20vw;
+    top: 40vw;
+    left: 40vw;
+    animation-duration: 7s;
+
+    section{
+        z-index: 5;
+        width: 4vw;
+        height: 4vw;
+        border-radius: 4vw;
+        transform: translate(-2vw, -2vw);
+    }
+}
+
+#indeed{
+    z-index: 3;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 30vw;
+    top: 35vw;
+    left: 35vw;
+    animation-duration: 9.5s;
+
+    section{
+        z-index: 4;
+        width: 6vw;
+        height: 6vw;
+        border-radius: 6vw;
+        transform: translate(-3vw, -3vw);
+    }
+}
+
+#linkedin{
+    z-index: 2;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 60vw;
+    top: 20vw;
+    left: 20vw;
+    animation-duration: 19s;
+    animation-direction: reverse;
+
+    section{
+        z-index: 3;
+        width: 18vw;
+        height: 18vw;
+        border-radius: 18vw;
+        transform: translate(-9vw, -9vw);
+    }
+}
+
+#plandiag{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: skew(0deg, 15deg);
+}
+
+#github{
+    z-index: 1;
+    width: 106vw;
+    height: 106vw;
+    border-radius: 106vw;
+    top: -10vw;
+    left: -10vw;
+    animation-name: OrbitCircle;
+    animation-duration: 60s;
+    animation-direction: reverse;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    section{
+        z-index: 2;
+        width: 8vw;
+        height: 8vw;
+        border-radius: 8vw;
+        top: calc(50% - 4vw);
+        left: -4vw;
+    }
+}
+
+
+/*=============================================
+=            LE LABO            =
+=============================================*/
+
+#fondu{
+    height: 50vh;
+    background-image: linear-gradient(to bottom, #444, var(--laboBackground));
+}
+#labo{
+    background-color: var(--laboBackground);
+
+    h2{
+        font-family: "Signika Negative";
+        font-size: 3rem;
+        color: var(--laboColor);
+        text-shadow: 1px 1px 3px var(--laboNeon);
+    }
+
+    p{
+        color: white;
+        margin-bottom: 1em;
+        text-align: center;
+        width: 80%;
+        margin: auto;
+        margin-bottom: 1em;
+    }
+
+    form{
+        border: 1px solid var(--laboColor);
+        border-radius: 0.2em;
+        box-shadow: 0 0 5px var(--laboNeon), inset 0 0 5px var(--laboNeon);
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(row, space-around, center);
+        width: 60%;
+        margin: auto;
+        padding-bottom: 0.7em;
+        padding-top: 0.7em;
+    }
+
+    /* marche pas */
+    input:focus-visible{
+        box-sizing: border-box;
+    }
+
+    input, select{
+        background-color: var(--laboBackground);
+        color: white;
+        border: 1px solid white;
+        border-radius: 0.2em;
+    }
+
+    input:focus, select:focus, input:hover, select:hover{
+        box-shadow: 0 0 3px #EEE;
+        outline: none;
+    }
+}
+
+#gal{
+    /* valeur par défault: flexWrap = wrap */
+    @include Flex(column, flex-start, center, nowrap);
+    width: 90%;
+    margin: auto;
+
+    article{
+        width: 350px;
+        height: 350px;
+        color: var(--textColor);
+        background-color: var(--laboColor);
+        box-sizing: border-box;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.gGear{
+    /* valeur par défault: flexWrap = wrap */
+    @include Flex(column, flex-start, center, nowrap);
+    width: 100%;
+    height: 100%;
+}
+
+.pGear{
+    /* valeur par défault: flexWrap = wrap */
+    @include Flex(column, flex-start, center, nowrap);
+    width: 100%;
+    height: 100%;
+}

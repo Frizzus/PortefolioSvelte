@@ -1,0 +1,59 @@
+@use "mixin.scss" as *;
+@use "var.scss" as *;
+
+@media screen and (min-width: 800px) {
+    header{
+        h1{
+            text-align: center;
+            font-size: 10em;
+            color: var(--color);
+            font-family: "Signika Negative";
+            align-self: center;
+            margin-bottom: 0px;
+        }
+    
+        h2{
+            color: var(--color);
+            font-size: 3em;
+        }
+    }
+
+    header nav{
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(column, space-between, start, nowrap);
+
+        a:focus>h2{
+            display: none;
+        }
+
+        a:hover{
+            width: 12em;
+        }
+
+        a:hover>h2{
+            display: block;
+        }
+
+        #picker, a{
+            border-top-right-radius: 50px;
+            border-bottom-left-radius: 0px;
+        }
+    }
+
+    #apropos{
+        img{
+            width: 35%;
+        }
+    }
+
+    #competences{
+        margin: auto;
+        width: 70%;
+        height: 30em;
+    }
+
+    .pGear{
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(row, space-around, center, nowrap);
+    }
+}

@@ -1,0 +1,19 @@
+@use "mixin.scss" as *;
+@use "var.scss" as *;
+
+/* grand écrans */
+@media screen and (min-width: 1200px){
+    header nav{
+        .subNav>div{
+            /* valeur par défault: flexWrap = wrap */
+            @include Flex(row, space-between, center, nowrap);
+        }
+    }
+
+    #gal{
+        article{
+            width: 280px;
+            height: 280px
+        }
+    }
+}

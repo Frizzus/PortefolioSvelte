@@ -1,0 +1,21 @@
+@use "mixin.scss" as *;
+@use "var.scss" as *;
+
+@media screen and (min-width:480px) {
+    header nav{
+        .subNav{
+            /* valeur par défault: flexWrap = wrap */
+            @include Flex(row, space-evenly, center, nowrap);
+        }
+
+        h1{
+            margin: 1em;
+        }
+    }
+
+    #carroussel{
+        ul{
+            padding-left: 10%;
+        }
+    }
+}

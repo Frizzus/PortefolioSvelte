@@ -1,0 +1,27 @@
+@use "mixin.scss" as *;
+@use "var.scss" as *;
+
+@media screen and (min-width: 1000px) {
+    #apropos{
+        div{
+            display: block;
+        }
+        
+        img{
+            float: right;
+            width: 25%;
+        }
+    }
+
+    #gal{
+        article{
+            width: 230px;
+            height: 230px
+        }
+    }
+
+    .gGear{
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(row, space-evenly, center, nowrap);
+    }
+}
