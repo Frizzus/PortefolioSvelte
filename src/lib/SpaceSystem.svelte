@@ -6,21 +6,21 @@
   <div class="orbit" id="linkedin">
     <section>
       <a href="http://" target="_blank" rel="noopener noreferrer">
-        <h2 />
+        <img src="favicon.svg" alt="linkedin">
       </a>
     </section>
   </div>
   <div class="orbit" id="indeed">
     <section>
       <a href="http://" target="_blank" rel="noopener noreferrer">
-        <h2 />
+        <img src="favicon.svg" alt="indeed">
       </a>
     </section>
   </div>
   <div class="orbit" id="email">
     <section>
       <a href="http://" target="_blank" rel="noopener noreferrer">
-        <h2 />
+        <img src="favicon.svg" alt="Gmail">
       </a>
     </section>
   </div>
@@ -28,7 +28,7 @@
     <div class="orbit" id="github">
       <section>
         <a href="http://" target="_blank" rel="noopener noreferrer">
-          <h2 />
+          <img src="favicon.svg" alt="github">
         </a>
       </section>
     </div>
@@ -42,6 +42,17 @@
   #galaxy {
     height: 100vw;
     position: relative;
+  }
+
+  a{
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img{
+    width: 100%;
+    transform: scale(0.9, 0.9);
   }
 
   .orbit {

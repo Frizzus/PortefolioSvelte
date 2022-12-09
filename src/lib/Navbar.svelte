@@ -31,7 +31,7 @@
     width: 100%;
     /* valeur par défault: flexWrap = wrap */
     @include Flex(row, flex-start, flex-start, nowrap);
-    z-index: 3;
+    z-index: 100;
     left: 0px;
     top: 0px;
   }
@@ -70,6 +70,18 @@
     transition-timing-function: ease-in-out;
     transition-delay: 0s;
   }
+
+  a:focus {
+      flex-grow: 1;
+    }
+
+    a:focus > h2 {
+      display: block;
+    }
+
+    #picker:hover {
+      border: 1px solid black;
+    }
 
   @media screen and (min-width: 800px) {
     nav {

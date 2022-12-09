@@ -19,7 +19,6 @@
 </script>
 
 <section>
-    <h2>Gallery</h2>
     {#each items as tab2d}
         <div class="gGear">
         {#each tab2d as  tab3d}
