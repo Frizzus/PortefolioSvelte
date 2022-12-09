@@ -1,6 +1,7 @@
 <script>
 </script>
 
+<!-- gérer les ombres des planêtes par rapport au soleil avec boxshadow inset et l'inspecteur google -->
 <div id="galaxy">
   <div class="orbit" id="sun" />
   <div class="orbit" id="linkedin">

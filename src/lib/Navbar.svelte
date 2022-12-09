@@ -28,7 +28,7 @@
 
   nav {
     position: fixed;
-    width: 100%;
+    width: fit-content;
     /* valeur par défault: flexWrap = wrap */
     @include Flex(row, flex-start, flex-start, nowrap);
     z-index: 100;
