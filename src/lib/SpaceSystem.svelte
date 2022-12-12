@@ -41,6 +41,7 @@
   @use "var.scss" as *;
 
   #galaxy {
+    overflow: hidden;
     height: 100vw;
     position: relative;
   }

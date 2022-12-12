@@ -3,10 +3,12 @@
   import Gallery from "../lib/Gallery.svelte";
   import Navbar from "../lib/Navbar.svelte";
   import SpaceSystem from "../lib/SpaceSystem.svelte";
+  import ColorPicker from "../lib/ColorPicker.svelte";
 </script>
 
 <header>
   <Navbar />
+  <ColorPicker />
   <h1>Loïc Canin</h1>
   <hr />
   <h2>Développeur Web FullStack créatif et innovant !</h2>
@@ -182,7 +184,7 @@
     #leftPart {
       /* position */
       position: absolute;
-      bottom: 0px;
+      bottom: 0;
       left: -20%;
       /* border */
       border-top-right-radius: 100%;
@@ -227,7 +229,7 @@
     /* valeur par défault: flexWrap = wrap */
     @include Flex(column, flex-start, stretch, nowrap);
     border-radius: 0.2em;
-    box-shadow: 2px 3px 10px #111;
+    box-shadow: 1px 2px 3px #111;
   }
 
   #competences > :last-child {
@@ -240,7 +242,7 @@
     background-image: linear-gradient(
       to top,
       var(--secondaryColor) 50%,
-      var(--primaryColor) 80%
+      white 80%
     );
     clip-path: content-box ellipse(100% 70% at 50% 100%);
   }
@@ -273,13 +275,20 @@
     background-image: linear-gradient(
       to bottom,
       var(--secondaryColor) 10%,
-      #444 90%
+      #111 30%
     );
 
     > h2 {
-      margin-top: 0px;
-      padding-top: 40px;
-      color: #444;
+      z-index: 10;
+      position: relative;
+      top: 20px;
+      padding: 10px;
+      width: fit-content;
+      height: fit-content;
+      margin: auto;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 1px 2px 3px #111;
     }
   }
 
@@ -290,7 +299,10 @@
 
   #fondu {
     height: 50vh;
-    background-image: linear-gradient(to bottom, #444, var(--laboBackground));
+    background-color: #111;
+    background-image: url(img/layered-steps-haikei.svg);
+    background-repeat: repeat-x;
+    background-position: bottom;
   }
   #labo {
     background-color: var(--laboBackground);

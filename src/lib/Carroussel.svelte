@@ -1,8 +1,63 @@
 <script>
+  import { onMount } from "svelte";
+
+
+  "use strict";
+let intervalId, actualNavIndex = 0, lastNavIndex, carroussel, tabs, tabDot = [], nav;
+const CARRSWAPTIME = 2000;
+
+onMount(() =>{
+    tabs = [...carroussel.children];
+    tabs.pop();
+
+    addDot(tabs.length);
+    ActivateCarroussel();
+});
+
+function ActivateCarroussel() {
+    intervalId = setInterval(NextSlide, CARRSWAPTIME);
+}
+
+function DesactivateCarroussel() {
+    clearInterval(intervalId);
+}
+
+function NextSlide() {
+    lastNavIndex = actualNavIndex;
+    actualNavIndex++;
+    actualNavIndex = actualNavIndex%tabs.length;
+
+    
+    tabs[lastNavIndex].classList.remove("slidein");
+    tabs[lastNavIndex].classList.add("slideout");
+
+    tabs[actualNavIndex].classList.remove("slideout");
+    tabs[actualNavIndex].classList.add("slidein");
+    
+    tabDot[lastNavIndex].style.backgroundColor = "var(--light)";
+    tabDot[actualNavIndex].style.backgroundColor = "var(--primaryColor)";
+
+}
+
+/** Ajoute un certain nombre nbSlide de point en bas du carroussel représentant la navigation
+ * 
+ * @param nbSlide
+ */
+function addDot(nbSlide) {
+    let spanElem
+    for (let i = 0; i < nbSlide; i++) {
+        spanElem = document.createElement("span");
+        spanElem.setAttribute("class", "navDot");
+        // span mis dans un tableau pour garder une trace dans nextSLide
+        tabDot.push(spanElem);
+        nav.appendChild(spanElem);
+    }
+}
 </script>
 
-<div id="carroussel">
-  <article>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div id="carroussel" bind:this={carroussel} on:mouseleave={ActivateCarroussel} on:mouseenter={DesactivateCarroussel} on:click={NextSlide}>
+  <article class="slidein">
     <h3>Développement Web FrontEnd</h3>
     <ul>
       <li>
@@ -33,7 +88,7 @@
       </li>
     </ul>
   </article>
-  <article>
+  <article class="slideout">
     <h3>Maitrise de Framework</h3>
     <ul>
       <li>
@@ -112,7 +167,7 @@
       <li>Rust</li>
     </ul>
   </article>
-  <nav />
+  <nav bind:this={nav}/>
 </div>
 
 <style lang="scss">
@@ -125,7 +180,7 @@
     overflow: hidden;
     z-index: 2;
 
-    :global(.slidein) {
+    .slidein {
       animation-name: SlideIn;
       animation-timing-function: ease-in;
       animation-duration: 0.5s;
@@ -133,7 +188,7 @@
       animation-fill-mode: forwards;
     }
 
-    :global(.slideout) {
+    .slideout {
       animation-name: SlideOut;
       animation-timing-function: ease-in;
       animation-duration: 0.5s;
@@ -160,14 +215,14 @@
       position: absolute;
       bottom: 1em;
     }
+  }
 
-    nav span {
+  :global(.navDot){
       width: 10px;
       height: 10px;
 
       background-color: var(--color);
     }
-  }
 
   :global(.clean) {
     clear: both;

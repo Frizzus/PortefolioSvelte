@@ -1,39 +1,237 @@
 <script>
+  import { onMount } from "svelte";
+
+  class TSLColor {
+    constructor(teinte = 180, saturation = "100%", lumiere = "50%") {
+      this.teinte = teinte;
+      this.saturation = saturation;
+      this.lumiere = lumiere;
+    }
+
+    setOption(option) {
+      switch (option) {
+        case "pastel":
+          this.saturation = "70%";
+          this.lumiere = "80%";
+          this.option = option;
+          break;
+        case "equilibre":
+          this.saturation = "60%";
+          this.lumiere = "50%";
+          this.option = option;
+          break;
+        case "sombre":
+          this.saturation = "90%";
+          this.lumiere = "20%";
+          this.option = option;
+          break;
+        case "sature":
+          this.saturation = "100%";
+          this.lumiere = "50%";
+          this.option = option;
+          break;
+      }
+    }
+
+    toStyle() {
+      return (
+        "hsl(" +
+        this.teinte +
+        ", " +
+        this.saturation +
+        ", " +
+        this.lumiere +
+        ")"
+      );
+    }
+  }
+
+  let picker;
+  let teinteBar;
+  let docStyle;
+  let pickerSelect;
+  let pickerImg;
+  let button;
+  let styleSelects;
+  /**
+ * const navLinks = document.getElementsByClassName("lwf");
+let view = document.querySelector("#colorView");
+ */
+  let isDeployed = false;
+  let color = new TSLColor();
+  let complementaryColor = new TSLColor();
+  let laboColor = new TSLColor();
+  let laboNeon = new TSLColor(0, "100%", "62%");
+
+  function initBindVar() {
+    docStyle = document.documentElement.style;
+    pickerSelect = picker.children[0];
+    pickerImg = picker.children[1];
+  }
+
+  function deployPicker() {
+    picker.focus();
+    if (!isDeployed) {
+      picker.style.width = "20em";
+      picker.style.height = "15em";
+      pickerSelect.style.display = "flex";
+      pickerImg.style.display = "none";
+      isDeployed = true;
+    }
+  }
+
+  // le colorpicker doit se retirer si il est déployé et si l'évenement focusout focus un élément extérieur au picker (sinon les inout à l'intérieur du colorpicker fermerait l'onglet à chaque fois que l'on veut changer le valeur)
+  function retrievePicker(event) {
+    if (isDeployed && isFocusOut(event)) {
+      picker.style.width = "4em";
+      picker.style.height = "8vh";
+      pickerSelect.style.display = "none";
+      pickerImg.style.display = "block";
+      isDeployed = false;
+    }
+  }
+
+  function switchStyle(event) {
+    color.setOption(event.target.id);
+    changeViewStyle();
+  }
+
+  function setColor(event) {
+    color.teinte = event.target.value;
+    docStyle.setProperty(
+      "--teinteThumbColor",
+      "hsl(" + event.target.value + ", 100%, 50%)"
+    );
+    changeViewStyle();
+  }
+
+  function changeViewStyle() {
+    docStyle.setProperty("--pickerColor", color.toStyle());
+
+    // --secondaryColor
+    complementaryColor.teinte = (color.teinte + 180) % 360;
+    complementaryColor.saturation = color.saturation;
+    complementaryColor.lumiere = color.lumiere;
+    docStyle.setProperty("--pickerCColor", complementaryColor.toStyle());
+  }
+
+  function changePageStyle(event) {
+    event.preventDefault();
+    docStyle.setProperty("--primaryColor", color.toStyle());
+    docStyle.setProperty("--secondaryColor", complementaryColor.toStyle());
+
+    // --laboColor
+    laboColor.teinte = color.teinte;
+    docStyle.setProperty("--laboColor", laboColor.toStyle());
+
+    // --laboNeon
+    laboNeon.teinte = color.teinte;
+    docStyle.setProperty("--laboNeon", laboNeon.toStyle());
+  }
+
+  // faire en sorte que picker ne perde pas le focus quand on clique à l'intérieur
+  function isFocusOut(event) {
+    let isOut = true;
+
+    [...pickerSelect.children].forEach((element) => {
+      if (element === event.relatedTarget) {
+        isOut = false;
+      }
+    });
+    return isOut;
+  }
+  onMount(() => {
+    initBindVar();
+  });
 </script>
 
-<section id="picker">
-  <div id="colorView" />
-  <form>
-    <div>
-      <label for="pastel">Pastel</label>
-      <label for="equilibre">Equilibré</label>
-    </div>
-    <div>
-      <label for="sombre">Sombre</label>
-      <label for="sature">Saturé</label>
-    </div>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- aggrandir et rétrécir l'onglet -->
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+<div
+  id="picker"
+  tabindex="0"
+  bind:this={picker}
+  on:click={deployPicker}
+  on:focusout={retrievePicker}
+>
+  <section>
+    <div id="colorView" />
+    <!-- détecter et changer le changement de style de couleur -->
+    <form bind:this={styleSelects} on:change={switchStyle}>
+      <div>
+        <label for="pastel">Pastel</label>
+        <label for="equilibre">Equilibré</label>
+      </div>
+      <div>
+        <label for="sombre">Sombre</label>
+        <label for="sature">Saturé</label>
+      </div>
 
-    <input type="radio" name="color" id="pastel" />
-    <input type="radio" name="color" id="equilibre" />
-    <input type="radio" name="color" id="sombre" />
-    <input type="radio" name="color" id="sature" />
-  </form>
-  <input type="range" id="hsl" min="0" max="360" value="0" step="1" />
-  <button>Changer de couleur primaire</button>
-</section>
+      <input type="radio" name="color" id="pastel" />
+      <input type="radio" name="color" id="equilibre" />
+      <input type="radio" name="color" id="sombre" />
+      <input type="radio" name="color" id="sature" />
+    </form>
+    <!-- détecter et changer le changement de teinte -->
+    <!-- setup des valeur au lancement de la page -->
+    <input
+      type="range"
+      id="hsl"
+      min="0"
+      max="360"
+      value="0"
+      step="1"
+      bind:this={teinteBar}
+      on:mousemove={setColor}
+      on:change={setColor}
+      on:load={setColor}
+    />
+    <!-- détecter et changer la couleur à l'appuie du bouton pour changer le theme de la page -->
+    <button bind:this={button} on:click={changePageStyle}
+      >Changer de couleur primaire</button
+    >
+  </section>
+  <img src="img/palette-solid.svg" alt="plateau pour peinture" />
+</div>
 
 <style lang="scss">
   @use "mixin.scss" as *;
   @use "var.scss" as *;
 
   #picker {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    text-decoration: none;
+    width: 4em;
+    height: 8vh;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--color);
+    box-shadow: 1px 0px 5px var(--textColor);
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
     /* valeur par défault: flexWrap = wrap */
+    @include Flex(row, center, center, nowrap);
+    overflow: hidden;
+    /* Transition */
+    transition-property: width, height, flex-grow;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+
+    section{
+      /* valeur par défault: flexWrap = wrap */
     @include Flex(column, center, center, nowrap);
     display: none;
     position: relative;
 
     width: 100%;
     height: 100%;
+    }
 
     form {
       /* valeur par défault: flexWrap = wrap */
@@ -74,13 +272,21 @@
     button:active {
       background-color: #555;
     }
+
+    img {
+    display: inline;
+    height: 1.8em;
   }
+  }
+
+  #picker:hover {
+      border: 1px solid black;
+    }
 
   #colorView {
     width: 100px;
     height: 100px;
     border-radius: 10px;
-    border: 2px dotted var(--textColor);
     background-image: linear-gradient(
       45deg,
       var(--pickerCColor) 5%,
@@ -118,5 +324,13 @@
   }
   #hsl::-webkit-slider-thumb:active {
     box-shadow: none;
+  }
+
+  @media screen and (min-width: 800px){
+    #picker{
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 0px;
+      }
   }
 </style>
