@@ -161,9 +161,9 @@
 
   #github {
     z-index: 1;
-    width: 106vw;
-    height: 106vw;
-    border-radius: 106vw;
+    width: 110vw;
+    height: 110vw;
+    border-radius: 110vw;
     top: -10vw;
     left: -10vw;
     animation-name: OrbitCircle;

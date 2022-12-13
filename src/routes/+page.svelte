@@ -4,6 +4,9 @@
   import Navbar from "../lib/Navbar.svelte";
   import SpaceSystem from "../lib/SpaceSystem.svelte";
   import ColorPicker from "../lib/ColorPicker.svelte";
+
+  /** @type {import('./$types').PageServerLoad} */
+  export let data;
 </script>
 
 <header>
@@ -70,7 +73,7 @@
         </select>
         <input type="submit" value="Trier" />
       </form>
-      <Gallery />
+      <Gallery items={data.post.items}/>
     </div>
   </section>
 </main>
@@ -162,7 +165,7 @@
       text-align: center;
       font-size: 4rem;
       color: var(--color);
-      font-family: "Signika Negative";
+      font-family: "Marhey";
       align-self: center;
       margin-bottom: 0px;
       text-shadow: 1px 1px 4px var(--shadowTxt);
@@ -171,6 +174,7 @@
     h2 {
       color: var(--color);
       font-size: 2rem;
+      font-family: "Signika Negative";
     }
 
     > div {
@@ -298,11 +302,12 @@
 =============================================*/
 
   #fondu {
-    height: 50vh;
+    height: 70vh;
     background-color: #111;
     background-image: url(img/layered-steps-haikei.svg);
     background-repeat: repeat-x;
     background-position: bottom;
+    background-size: auto;
   }
   #labo {
     background-color: var(--laboBackground);

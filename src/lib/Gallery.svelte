@@ -24,10 +24,14 @@
         {#each tab2d as  tab3d}
             <div class="pGear">
             {#each tab3d as item}
+                {#if item.src == null}
+                <figure></figure>
+                {:else}
                 <figure style:--fadeColor={fadeColor} tabindex="-1">
-                    <img src="{(item.src === null) ? item.src : "favicon.svg"}" alt="{item.alt}" loading="lazy">
-                    <figcaption style:color={textColor}>{item.figcaption}</figcaption>
+                    <img src="{item.src}" alt="{item.alt}" loading="lazy">
+                    <figcaption style:color={textColor}><h3>{item.title}</h3><p>{item.caption}</p></figcaption>
                 </figure>
+                {/if}
             {/each}
             </div>
         {/each}
@@ -48,7 +52,7 @@
         margin: 5px;
         width: 100%;
 
-        background-color: #EEE;
+        background-color: transparent;
         box-sizing: border-box;
     }
 
@@ -60,7 +64,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 80%;
+        height: 80.3%;
         /* Transition */
         opacity: 0%;
         background-color: transparent;

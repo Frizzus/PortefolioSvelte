@@ -15,5 +15,8 @@
 		"svelte-preprocess": "^4.10.7",
 		"vite": "^3.2.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"mysql": "^2.18.1"
+	}
 }

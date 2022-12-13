@@ -56,6 +56,7 @@ onMount(() => {
   @use "var.scss" as *;
 
   nav {
+    pointer-events: auto;
     position: fixed;
     width: 100%;
     /* valeur par défault: flexWrap = wrap */
@@ -69,8 +70,10 @@ onMount(() => {
     margin: 0px;
     padding-right: 5px;
     font-size: 1em;
+    font-family: "Signika Negative";
     color: var(--secondaryColor);
     display: none;
+    text-shadow: none;
   }
 
   h2 + img{
@@ -112,6 +115,7 @@ onMount(() => {
     nav {
       /* valeur par défault: flexWrap = wrap */
       @include Flex(column, space-between, start, nowrap);
+      width: fit-content;
 
       a:focus > h2 {
         display: none;
