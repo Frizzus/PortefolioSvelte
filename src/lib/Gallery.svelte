@@ -3,8 +3,10 @@
     /** Structure de l'objet article
      * {
         src: "";
+        title: "";
         alt: "";
-        figcaption:"";
+        caption:"";
+        lien: "";
         }
 
         items == un tableau 3D chaque case contenant une ligne de la gallerie
@@ -14,7 +16,7 @@
                         [[{}, {}, {}]],
                         [[{}, {}], [{}, {}]]];
     export let textColor = "white";
-    export let fadeColor = "hsla(14.6, 100%, 50%, 80%)";
+    export let fadeColor = "hsla(0, 0%, 2%, 40%)";
 
 </script>
 
@@ -29,7 +31,7 @@
                 {:else}
                 <figure style:--fadeColor={fadeColor} tabindex="-1">
                     <img src="{item.src}" alt="{item.alt}" loading="lazy">
-                    <figcaption style:color={textColor}><h3>{item.title}</h3><p>{item.caption}</p></figcaption>
+                    <figcaption style:color={textColor}><h3>{item.title}</h3><p>{item.caption}</p><a href="{item.lien}">Vers le site</a></figcaption>
                 </figure>
                 {/if}
             {/each}
@@ -40,6 +42,8 @@
 </section>
 
 <style lang="scss">
+    @use "var.scss" as *; 
+
     section {
         width: 90%;
         margin: auto;
@@ -49,7 +53,7 @@
         position: relative;
         flex-grow: 1;
         text-align: center;
-        margin: 5px;
+        margin: 7px;
         width: 100%;
 
         background-color: transparent;
@@ -58,23 +62,50 @@
 
     figcaption{
         text-align: center;
-        padding-top: 20%;
         position: absolute;
         z-index: 3;
         top: 0;
         left: 0;
         width: 100%;
-        height: 80.3%;
+        height: 100%;
         /* Transition */
         opacity: 0%;
         background-color: transparent;
         transition-property: opacity background-color;
         transition-timing-function: ease-in-out;
         transition-duration: 0.3s;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 5px;
+
+        p{
+            color: white;
+            font-size: 1rem;
+        }
+
+        a{
+            font-family: "Signika Negative";
+            width: fit-content;
+            padding: 2%;
+            background-color: var(--laboColor);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 1px 2px 0 white;
+            text-shadow: 1px 1px 1px #111;
+        }
+
+        a:active{
+            box-shadow: none;
+        }
     }
 
     img{
         width: 100%;
+        border-radius: 5px;
     }
 
     figure:hover figcaption, figure:focus figcaption{
@@ -82,8 +113,9 @@
         background-color: var(--fadeColor);
     }
 
-    figure:focus{
-        border: 1px solid black;
+    figure:hover img,figure:focus img{
+        filter: grayscale(100%);
+        width: 100%;
     }
 
     .gGear {

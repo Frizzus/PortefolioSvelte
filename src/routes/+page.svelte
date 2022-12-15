@@ -56,16 +56,10 @@
     <h2>Le Labo</h2>
     <div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi officia
-        modi aut rem beatae omnis neque nulla maxime esse pariatur illum, rerum
-        suscipit eius dolorem delectus consequatur natus atque vitae.
-        Perspiciatis nulla labore nesciunt dolor, sint quaerat voluptates,
-        inventore cumque dolorum ipsum, beatae corrupti doloribus amet maiores
-        doloremque repudiandae. Culpa harum obcaecati voluptas impedit quod
-        iusto officiis aut quos repellat.
+        Vous y trouverez des sites que j'ai fait répondant à une ou plusieurs compétences, que ce soit un site que j'ai fait pour quelqu'un, un site pour m'exercer à une technologie ou certain de mes autres projet personnels concluant. Vous pouvez faire une recherche en spécifiant une technologie.
       </p>
-      <form action="index.php" method="post" name="labo">
-        <input type="text" name="motclef" id="recherche" value="default" />
+      <form action="?/labo#labo" method="post" name="labo">
+        <input type="text" name="motclef" id="recherche" placeholder="recherche ..." />
         <select name="trie" id="tri">
           <option value="lexi">Ordre lexicographique</option>
           <option value="decroissant">Du plus vieux au plus jeune</option>
@@ -333,9 +327,11 @@
       border-radius: 0.2em;
       box-shadow: 0 0 5px var(--laboNeon), inset 0 0 5px var(--laboNeon);
       /* valeur par défault: flexWrap = wrap */
-      @include Flex(row, space-around, center);
+      @include Flex(column, space-around, center);
       width: 60%;
+      height: 8rem;
       margin: auto;
+      margin-bottom: 2rem;
       padding-bottom: 0.7em;
       padding-top: 0.7em;
     }
@@ -377,6 +373,14 @@
             color: var(--color);
             font-size: 3em;
         }
+    }
+
+    #labo{
+      form{
+        /* valeur par défault: flexWrap = wrap */
+        @include Flex(row, space-around, center, nowrap);
+        height: auto;
+      }
     }
   }
 
