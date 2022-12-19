@@ -1,4 +1,5 @@
 <script>
+  import { invalidate } from '$app/navigation';
   import Carroussel from "../lib/Carroussel.svelte";
   import Gallery from "../lib/Gallery.svelte";
   import Navbar from "../lib/Navbar.svelte";
@@ -7,6 +8,8 @@
 
   /** @type {import('./$types').PageServerLoad} */
   export let data;
+
+  
 </script>
 
 <header>
@@ -65,7 +68,7 @@
           <option value="decroissant">Du plus vieux au plus jeune</option>
           <option value="croissant">Du plus jeune au plus vieux</option>
         </select>
-        <input type="submit" value="Trier" />
+        <input type="submit" value="Trier"/>
       </form>
       <Gallery items={data.post.items}/>
     </div>
