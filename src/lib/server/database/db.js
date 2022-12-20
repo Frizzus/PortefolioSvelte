@@ -1,14 +1,106 @@
 import * as my from 'mysql';
-export let lignes = [];
 
-// bX]s2yeisdAsif*r 
-export const pool = my.createPool({
-    connectionLimit: 10,
-    host: "localhost",
-    user: "Frizzus",
-    password: "bX]s2yeisdAsif*r",
-    database: "portefolio"
-});
+
+export class MysqlPool{
+    static #pool = undefined;
+    static #results;
+    static #fields;
+
+    constructor(){
+        throw Error("MysqlPool is a Singleton and should not be defined by hands\n");
+    }
+
+    /** Define a connection pool for the MysqlPool Singleton, you can define your pool only one time
+     * 
+     * @param {String} user Mysql user
+     * @param {String} password password for user
+     * @param {String} host where the database is hosted
+     * @param {String} database the database name
+     * @param {Int} connectionLimit the connection limit, it's defined at 10 by default
+     */
+    static definePool(user, password, host, database, connectionLimit = 10){
+        if (MysqlPool.#pool === undefined) {
+            MysqlPool.#pool = my.createPool({
+                user: user,
+                password: password,
+                host: host,
+                database: database,
+                connectionLimit: connectionLimit
+            });
+        }
+        else{
+            throw Error("MysqlPool has already defined a connection pool, look in your code to switch database\n");
+        }
+    }
+
+    /** return true if the connection pool has already been defined
+     * 
+     * @returns boolean
+     */
+    static isPoolDefined(){
+        if (MysqlPool.#pool === undefined) {
+            return false
+        }
+        else{
+            return true
+        }
+    }
+
+    /** 
+     * 
+     * @param {String} sqlRequest 
+     * @returns {Object} An Unamed Object grouping the data record : {(property) results, (property) fields}
+     */
+    static async query(sqlRequest){
+        if (MysqlPool.#pool === undefined) {
+            throw Error("The connection to the database has not been intialized\n");
+        }
+
+        MysqlPool.#pool.query(sqlRequest, function (error, res, fiel) {
+            if (error) {
+                throw error;
+            }
+            MysqlPool.#setResults(res);
+            MysqlPool.#setFields(fiel);
+        });
+
+        return [MysqlPool.#getResults(), MysqlPool.#getFields()]
+    }
+
+    // Private Method
+
+    /**
+     * 
+     * @param {Array} res 
+     */
+    static #setResults(res){
+        MysqlPool.#results = res;
+    }
+
+    /**
+     * 
+     * @param {Array} fiel 
+     */
+    static #setFields(fiel){
+        MysqlPool.#fields = fiel;
+    }
+
+    /**
+     * 
+     * @returns {Object} The data of the last query
+     */
+    static #getResults(){
+        return MysqlPool.#results;
+    }
+
+    /**
+     * 
+     * @returns {Object} The fields of the last query
+     */
+    static #getFields(){
+        return MysqlPool.#fields;
+    }
+}
 
  export function FetchForGallery(error, results){
     if (error) throw error;
@@ -32,40 +124,5 @@ export const pool = my.createPool({
             ]);
         }
     }
-}
-
-export function GalleryRequest(mots = null, order = null) {
-    let request;
-
-    // dans tous les cas on voudras
-    request = 'SELECT src, alt, title, caption, lien FROM pannel INNER JOIN website ON website.id_website = pannel.id_website ';
-    // Si il y a des mots-clefs dans l'input on ajoute une cause where
-    if (mots !== null) {
-        request += 'WHERE mots_clefs';
-
-        mots.split(' ').forEach(element => {
-            request += ` LIKE \'%${element}%\' AND`;
-        });
-
-        // Attention à ne pas couper à -4 ce qui enlèverai l'espace et donnerais ANDORDER dans le cas ou il faut trier les résultas
-        request = request.slice(0,request.length - 3);
-    }
-    //Si order est  défini on ajoute la clause ORDER BY pour trier les lignes
-    switch (order) {
-        case "lexi":
-            request += "ORDER BY title ASC";
-            break;
-    
-        case "decroissant":
-            request += "ORDER BY date_ajout DESC";
-            break;
-        
-        case "croissant":
-            request += "ORDER BY date_ajout ASC";
-            break;
-    }
-    // On oublie pas de refermer la requête
-    request += ";";
-    return request;
 }
 

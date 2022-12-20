@@ -9,6 +9,8 @@
   /** @type {import('./$types').PageServerLoad} */
   export let data;
 
+  /** @type {import('./$types').ActionData} */  
+  export let form;
   
 </script>
 
@@ -70,7 +72,14 @@
         </select>
         <input type="submit" value="Trier"/>
       </form>
-      <Gallery items={data.post.items}/>
+      {#if form?.success}
+        <Gallery items={form.content}/>
+        {console.log("form.success = true : ", form.content)}
+      {:else}
+        <Gallery items={data.post.items.results}/>
+        {console.log("form.success = false or undefined : ", typeof data.post.items[0])}
+      {/if}
+      
     </div>
   </section>
 </main>
