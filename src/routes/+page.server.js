@@ -1,8 +1,7 @@
-import { error } from '@sveltejs/kit';
 import {MysqlPool} from '../lib/server/database/db.js';
 import {DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE} from '$env/static/private';
 
-let res;
+let res = [];
 
 
 /** @type {import('./$types').Actions} */
@@ -12,7 +11,9 @@ export const actions = {
         const mots_clefs = formData.get("motclef");
         const trie = formData.get("trie");
 
-        return {success: false};
+        let cont = await MysqlPool.query(GalleryRequest(mots_clefs, trie));
+
+        return {success: true, content: cont};
     }
 };
 
@@ -47,6 +48,44 @@ export async function load({ }) {
     };
 }
 
+/**
+ * 
+
+function SortRequest(request, motclef, trie) {
+    /**
+     * split motclef et split les motsclefs et le titre des element de la requête
+     * on ajoute dans un tab les objets qui contiennent tous les motclef de la recherche 
+     * 
+     * on prend le tab trier et on fait un switch pour voir quelle méthode de trie on va devoir faire
+     * on trie selon l'algo choisi et on retourne
+     *
+
+    let clefTab = motclef.split(' ');
+    let returnTab = [];
+
+    // vérifie les mots clefs
+    request.forEach(obj => {
+        let clefs = [];
+        let isValid = true;
+        clefs.push(...obj.mots_clefs.split('/'));
+        clefs.push(...obj.title.split(' '));
+
+        // vérifie si tous les mot rentré par l'utilisateur sont dans les mots clefs de l'obj
+        clefTab.forEach(mot => {
+            if (clefs.indexOf(mot) === -1) {
+                isValid = false;
+            }
+        });
+
+        if (isValid) {
+            returnTab.push(obj);
+        }
+    });
+
+    return returnTab;
+
+}
+*/
 
 function GalleryRequest(mots = null, order = null) {
     let request;

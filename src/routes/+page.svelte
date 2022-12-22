@@ -1,5 +1,4 @@
 <script>
-  import { invalidate } from '$app/navigation';
   import Carroussel from "../lib/Carroussel.svelte";
   import Gallery from "../lib/Gallery.svelte";
   import Navbar from "../lib/Navbar.svelte";
@@ -73,11 +72,9 @@
         <input type="submit" value="Trier"/>
       </form>
       {#if form?.success}
-        <Gallery items={form.content}/>
-        {console.log("form.success = true : ", form.content)}
+        <Gallery items={form.content.results}/>
       {:else}
         <Gallery items={data.post.items.results}/>
-        {console.log("form.success = false or undefined : ", typeof data.post.items[0])}
       {/if}
       
     </div>

@@ -64,7 +64,7 @@ export class MysqlPool{
             MysqlPool.#setFields(fiel);
         });
 
-        return [MysqlPool.#getResults(), MysqlPool.#getFields()]
+        return {results:PojoIfy(MysqlPool.#getResults()), fields:PojoIfy(MysqlPool.#getFields())};
     }
 
     // Private Method
@@ -102,27 +102,22 @@ export class MysqlPool{
     }
 }
 
- export function FetchForGallery(error, results){
-    if (error) throw error;
-    else {
-        lignes = [];
-        
-        // On fait le tour du tableau results 4 à 4 pour prendre tous les résultat et ont fait en sorte que le tableau de fin soit div par 4 pour le component Gallery
-        for (let i = 0; i < (results.length + (4 - (results.length % 4))); i += 4) {
-            // à chaque itération le programme push dans lignes une ligne de la gallery et prévoit que l'indice peut être plus haut que le nombre d'item dans results en ajoutant un objet vide à la place (géré par Gallery)
-            lignes.push([
-                [(results[i] !== undefined) ? { src: results[i].src, alt: results[i].alt, title: results[i].title, caption: results[i].caption, lien: results[i].lien } : {}
-
-
-                    , (results[i + 1] !== undefined) ? { src: results[i + 1].src, alt: results[i + 1].alt, title: results[i + 1].title, caption: results[i + 1].caption, lien: results[i + 1].lien } : {}],
-
-
-                [(results[i + 2] !== undefined) ? { src: results[i + 2].src, alt: results[i + 2].alt, title: results[i + 2].title, caption: results[i + 2].caption, lien: results[i + 2].lien } : {}
-
-
-                    , (results[i + 3] !== undefined) ? { src: results[i + 3].src, alt: results[i + 3].alt, title: results[i + 3].title, caption: results[i + 3].caption, lien: results[i + 3].lien } : {}]
-            ]);
-        }
-    }
+/** Take an Array of non Pojo and return a new array with pojo
+ * 
+ * @param {Array} nonPojoTab 
+ * @returns 
+ */
+function PojoIfy(nonPojoTab = []) {
+    let newPojoTab = [];
+    nonPojoTab.forEach(obj => {
+        newPojoTab.push({
+            src: obj.src,
+            alt: obj.alt,
+            title: obj.title,
+            caption: obj.caption,
+            lien: obj.lien
+        });
+    });
+    return newPojoTab
 }
 
