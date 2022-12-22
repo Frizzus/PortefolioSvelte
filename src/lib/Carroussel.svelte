@@ -3,14 +3,14 @@
 
 
   "use strict";
-let intervalId, actualNavIndex = 0, lastNavIndex, carroussel, tabs, tabDot = [], nav;
+let intervalId, actualNavIndex = 0, lastNavIndex = 3, carroussel, tabs = [], tabDot = [], nav;
 const CARRSWAPTIME = 2000;
 
 onMount(() =>{
     tabs = [...carroussel.children];
     tabs.pop();
+    tabDot = [...nav.children];
 
-    addDot(tabs.length);
     ActivateCarroussel();
 });
 
@@ -34,24 +34,24 @@ function NextSlide() {
     tabs[actualNavIndex].classList.remove("slideout");
     tabs[actualNavIndex].classList.add("slidein");
     
-    tabDot[lastNavIndex].style.backgroundColor = "var(--light)";
-    tabDot[actualNavIndex].style.backgroundColor = "var(--primaryColor)";
+    tabDot[lastNavIndex].setAttribute("class", "navDot def");
+    tabDot[actualNavIndex].setAttribute("class", "navDot colored");
 
 }
 
-/** Ajoute un certain nombre nbSlide de point en bas du carroussel représentant la navigation
- * 
- * @param nbSlide
- */
-function addDot(nbSlide) {
-    let spanElem
-    for (let i = 0; i < nbSlide; i++) {
-        spanElem = document.createElement("span");
-        spanElem.setAttribute("class", "navDot");
-        // span mis dans un tableau pour garder une trace dans nextSLide
-        tabDot.push(spanElem);
-        nav.appendChild(spanElem);
-    }
+function GoToSlide(index) {
+  lastNavIndex = actualNavIndex;
+    actualNavIndex = index;
+
+    
+    tabs[lastNavIndex].classList.remove("slidein");
+    tabs[lastNavIndex].classList.add("slideout");
+
+    tabs[actualNavIndex].classList.remove("slideout");
+    tabs[actualNavIndex].classList.add("slidein");
+    
+    tabDot[lastNavIndex].setAttribute("class", "navDot def");
+    tabDot[actualNavIndex].setAttribute("class", "navDot colored");
 }
 </script>
 
@@ -167,7 +167,12 @@ function addDot(nbSlide) {
       <li>Rust</li>
     </ul>
   </article>
-  <nav bind:this={nav}/>
+  <nav bind:this={nav}>
+    <h3 class="navDot" on:click={GoToSlide(0)}>Front-end</h3>
+    <h3 class="navDot" on:click={GoToSlide(1)}>Frameworks</h3>
+    <h3 class="navDot" on:click={GoToSlide(2)}>Back-end</h3>
+    <h3 class="navDot" on:click={GoToSlide(3)}>Langages</h3>
+  </nav>
 </div>
 
 <style lang="scss">
@@ -212,17 +217,39 @@ function addDot(nbSlide) {
       /* valeur par défault: flexWrap = wrap */
       @include Flex(row, center, center, nowrap);
       width: 100%;
+      height: 10%;
       position: absolute;
-      bottom: 1em;
+      bottom: 0;
     }
   }
 
   :global(.navDot){
-      width: 10px;
-      height: 10px;
+    height: 100%;
+      flex-grow: 1;
 
       background-color: var(--color);
+      outline: 1px solid var(--primaryColor);
+      color: var(--primaryColor);
+
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+
+      box-shadow: 0px -1px 1px #111;
+      text-shadow: none;
+
+      margin: 0;
     }
+
+  :global(.def){
+    background-color: var(--color);
+    outline-color: var(--primaryColor);
+    color: var(--primaryColor);
+  }
+
+  :global(.colored){
+    background-color: var(--primaryColor);
+    color: var(--color);
+  }
 
   :global(.clean) {
     clear: both;
