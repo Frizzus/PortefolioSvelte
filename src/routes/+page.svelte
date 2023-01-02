@@ -80,6 +80,9 @@
     </div>
   </section>
 </main>
+<footer>
+  <img src="img/footerWave.svg" alt="vague noire">
+</footer>
 
 <style lang="scss">
   @use "../lib/mixin.scss" as *;
@@ -287,7 +290,7 @@
     background-image: linear-gradient(
       to bottom,
       var(--secondaryColor) 10%,
-      #111 30%
+      #121212 30%
     );
 
     > h2 {
@@ -311,8 +314,7 @@
 
   #fondu {
     height: 70vh;
-    background-color: #111;
-    background-image: url(img/layered-steps-haikei.svg);
+    background-image: url(img/laboStep.svg);
     background-repeat: repeat-x;
     background-position: bottom;
     background-size: auto;
@@ -410,4 +412,17 @@
         }
     }
   }
+
+  
+  /*=============================================
+  =            FOOTER            =
+  =============================================*/
+  
+  footer{
+    background: linear-gradient(80deg, white 30%, var(--primaryColor) 60%, var(--secondaryColor) 95%);
+    height: 400px;
+    overflow: hidden;
+  }
+  
+  
 </style>
