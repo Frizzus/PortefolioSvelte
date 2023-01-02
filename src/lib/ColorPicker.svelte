@@ -194,10 +194,58 @@ let view = document.querySelector("#colorView");
   </section>
   <img src="img/palette-solid.svg" alt="plateau pour peinture" />
 </div>
+<div id="show">
+  <img src="img/upArrow.svg" alt="arrow">
+  <img src="img/upArrow.svg" alt="arrow">
+  <img src="img/upArrow.svg" alt="arrow">
+</div>
+
 
 <style lang="scss">
   @use "mixin.scss" as *;
   @use "var.scss" as *;
+
+  #show{
+    position: fixed;
+    z-index: 50;
+    top: 9vh;
+    right: 0;
+    width: fit-content;
+    /* valeur par défault: flexWrap = wrap */
+    @include Flex(column, center);
+
+    img{
+      opacity: 0;
+      width: 4em;
+
+      animation-name: Clignote;
+      animation-duration: 1.5s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: 3;
+    }
+
+    :nth-child(1){
+      animation-delay: 0.6s;
+    }
+
+    :nth-child(2){
+      animation-delay: 0.4s;
+      position: relative;
+      top: -1.8em;
+    }
+
+    :nth-child(3){
+      animation-delay: 0.2s;
+      position: relative;
+      top: -3.5em;
+    }
+  }
+
+  @keyframes Clignote{
+    from {opacity: 0;}
+    40%, 50% {opacity: 1;}
+    80%, to {opacity: 0;}
+  }
 
   #picker {
     position: fixed;
