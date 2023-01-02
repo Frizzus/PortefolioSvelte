@@ -253,6 +253,11 @@
     );
     clip-path: content-box ellipse(100% 70% at 50% 100%);
   }
+  @media screen and (max-width: 480px){
+    #competences>h2{
+      font-size: 2rem;
+    }
+  }
 
   #apropos {
     background-color: var(--color);

@@ -1,62 +1,69 @@
 <script>
   import { onMount } from "svelte";
 
+  ("use strict");
+  let intervalId,
+    actualNavIndex = 0,
+    lastNavIndex = 3,
+    carroussel,
+    tabs = [],
+    tabDot = [],
+    nav;
+  const CARRSWAPTIME = 2000;
 
-  "use strict";
-let intervalId, actualNavIndex = 0, lastNavIndex = 3, carroussel, tabs = [], tabDot = [], nav;
-const CARRSWAPTIME = 2000;
-
-onMount(() =>{
+  onMount(async () => {
     tabs = [...carroussel.children];
     tabs.pop();
     tabDot = [...nav.children];
-
     ActivateCarroussel();
-});
+  });
 
-function ActivateCarroussel() {
-    intervalId = setInterval(NextSlide, CARRSWAPTIME);
-}
-
-function DesactivateCarroussel() {
+  function ActivateCarroussel() {
     clearInterval(intervalId);
-}
+    intervalId = setInterval(NextSlide, CARRSWAPTIME);
+  }
 
-function NextSlide() {
+  function DesactivateCarroussel() {
+    clearInterval(intervalId);
+  }
+
+  function NextSlide() {
     lastNavIndex = actualNavIndex;
     actualNavIndex++;
-    actualNavIndex = actualNavIndex%tabs.length;
+    actualNavIndex = actualNavIndex % tabs.length;
 
-    
     tabs[lastNavIndex].classList.remove("slidein");
     tabs[lastNavIndex].classList.add("slideout");
 
     tabs[actualNavIndex].classList.remove("slideout");
     tabs[actualNavIndex].classList.add("slidein");
-    
+
     tabDot[lastNavIndex].setAttribute("class", "navDot def");
     tabDot[actualNavIndex].setAttribute("class", "navDot colored");
+  }
 
-}
-
-function GoToSlide(index) {
-  lastNavIndex = actualNavIndex;
+  function GoToSlide(index) {
+    lastNavIndex = actualNavIndex;
     actualNavIndex = index;
 
-    
     tabs[lastNavIndex].classList.remove("slidein");
     tabs[lastNavIndex].classList.add("slideout");
 
     tabs[actualNavIndex].classList.remove("slideout");
     tabs[actualNavIndex].classList.add("slidein");
-    
+
     tabDot[lastNavIndex].setAttribute("class", "navDot def");
     tabDot[actualNavIndex].setAttribute("class", "navDot colored");
-}
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div id="carroussel" bind:this={carroussel} on:mouseleave={ActivateCarroussel} on:mouseenter={DesactivateCarroussel} on:click={NextSlide}>
+<div
+  id="carroussel"
+  bind:this={carroussel}
+  on:mouseleave={ActivateCarroussel}
+  on:mouseenter={DesactivateCarroussel}
+>
   <article class="slidein">
     <h3>Développement Web FrontEnd</h3>
     <ul>
@@ -168,10 +175,38 @@ function GoToSlide(index) {
     </ul>
   </article>
   <nav bind:this={nav}>
-    <h3 class="navDot" on:click={GoToSlide(0)}>Front-end</h3>
-    <h3 class="navDot" on:click={GoToSlide(1)}>Frameworks</h3>
-    <h3 class="navDot" on:click={GoToSlide(2)}>Back-end</h3>
-    <h3 class="navDot" on:click={GoToSlide(3)}>Langages</h3>
+    <h3
+      class="navDot"
+      on:click={() => {
+        GoToSlide(0);
+      }}
+    >
+      Front-end
+    </h3>
+    <h3
+      class="navDot"
+      on:click={() => {
+        GoToSlide(1);
+      }}
+    >
+      Frameworks
+    </h3>
+    <h3
+      class="navDot"
+      on:click={() => {
+        GoToSlide(2);
+      }}
+    >
+      Back-end
+    </h3>
+    <h3
+      class="navDot"
+      on:click={() => {
+        GoToSlide(3);
+      }}
+    >
+      Langages
+    </h3>
   </nav>
 </div>
 
@@ -184,6 +219,11 @@ function GoToSlide(index) {
     height: 95%;
     overflow: hidden;
     z-index: 2;
+
+    li{
+      font-size: 0.9rem;
+      padding-right: 10px;
+    }
 
     .slidein {
       animation-name: SlideIn;
@@ -223,30 +263,35 @@ function GoToSlide(index) {
     }
   }
 
-  :global(.navDot){
+  :global(.navDot) {
     height: 100%;
-      flex-grow: 1;
+    flex-grow: 1;
 
-      background-color: var(--color);
-      outline: 1px solid var(--primaryColor);
-      color: var(--primaryColor);
+    background-color: var(--color);
+    outline: 1px solid var(--primaryColor);
+    color: var(--primaryColor);
 
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 
-      box-shadow: 0px -1px 1px #111;
-      text-shadow: none;
+    box-shadow: 0px -1px 1px #111;
+    text-shadow: none;
+    font-size: 0.9rem;
 
-      margin: 0;
-    }
+    margin: 0;
+  }
 
-  :global(.def){
+  :global(.navDot:active) {
+    outline-color: var(--secondaryColor);
+  }
+
+  :global(.def) {
     background-color: var(--color);
     outline-color: var(--primaryColor);
     color: var(--primaryColor);
   }
 
-  :global(.colored){
+  :global(.colored) {
     background-color: var(--primaryColor);
     color: var(--color);
   }
@@ -282,6 +327,17 @@ function GoToSlide(index) {
       ul {
         padding-left: 10%;
       }
+    }
+  }
+
+  @media screen and (min-width: 780px) {
+    #carroussel {
+      li{
+        font-size: 1.2rem;
+      }
+    }
+    :global(.navDot){
+      font-size: 1.5rem;
     }
   }
 </style>

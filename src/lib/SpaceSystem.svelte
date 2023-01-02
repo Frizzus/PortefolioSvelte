@@ -4,36 +4,27 @@
 <!-- gérer les ombres des planêtes par rapport au soleil avec boxshadow inset et l'inspecteur google -->
 <div id="galaxy">
   <div class="orbit" id="sun" />
-  <div class="orbit" id="linkedin">
-    <section>
-      <a href="http://" target="_blank" rel="noopener noreferrer">
-        <img src="favicon.svg" alt="linkedin">
-      </a>
-    </section>
-  </div>
-  <div class="orbit" id="indeed">
-    <section>
-      <a href="http://" target="_blank" rel="noopener noreferrer">
-        <img src="favicon.svg" alt="indeed">
-      </a>
-    </section>
-  </div>
-  <div class="orbit" id="email">
-    <section>
-      <a href="http://" target="_blank" rel="noopener noreferrer">
-        <img src="favicon.svg" alt="Gmail">
-      </a>
-    </section>
-  </div>
-  <div id="plandiag">
-    <div class="orbit" id="github">
+  <a href="http://" target="_blank" rel="noreferrer"
+    ><div class="orbit" id="linkedin">
       <section>
-        <a href="http://" target="_blank" rel="noopener noreferrer">
-          <img src="favicon.svg" alt="github">
-        </a>
+        <img src="img/linkedinIcon.svg" alt="linkedin" />
       </section>
-    </div>
-  </div>
+    </div></a
+  >
+  <a href="http://" target="_blank" rel="noreferrer"
+    ><div class="orbit" id="github">
+      <section>
+        <img src="img/githubIcon.svg" alt="github" />
+      </section>
+    </div></a
+  >
+  <a href="http://" target="_blank" rel="noreferrer"
+    ><div class="orbit" id="email">
+      <section>
+        <img src="img/gmailIcon.svg" alt="Gmail" />
+      </section>
+    </div></a
+  >
 </div>
 
 <style lang="scss">
@@ -46,14 +37,9 @@
     position: relative;
   }
 
-  a{
-    display: block;
+  img {
     width: 100%;
     height: 100%;
-  }
-
-  img{
-    width: 100%;
     transform: scale(0.9, 0.9);
   }
 
@@ -64,7 +50,7 @@
 
     section {
       position: absolute;
-      top: 50%;
+      top: 0;
       left: 0;
       border: 1px solid var(--color);
       box-shadow: 0 0 7px #111;
@@ -72,18 +58,26 @@
     }
   }
 
-  .orbit:not(#sun) {
-    border: 2px dotted var(--color);
+  .orbit:not(#sun):hover {
+    background-color: var(--primaryColor);
   }
 
-  .orbit:not(#github, #sun) {
+  .orbit:not(#sun):hover > section {
+    border-color: var(--primaryColor);
+  }
+
+  .orbit:not(#sun) {
+    border: 2px dotted var(--color);
+    transition-property: background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
     background-color: var(--secondaryColor);
     animation-name: OrbitCircle;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
   }
 
-  .orbit:not(#github) {
+  .orbit {
     box-shadow: 0 0 5px #111;
   }
 
@@ -102,8 +96,8 @@
     width: 20vw;
     height: 20vw;
     border-radius: 20vw;
-    top: 40vw;
-    left: 40vw;
+    top: 39vw;
+    left: 39vw;
     animation-duration: 7s;
 
     section {
@@ -111,15 +105,22 @@
       width: 4vw;
       height: 4vw;
       border-radius: 4vw;
-      transform: translate(-2vw, -2vw);
+      top: 1vw;
+      left: 1vw;
+
+      animation-name: OrbitCircle;
+      animation-duration: 7s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-direction: reverse;
     }
   }
 
-  #indeed {
+  #github {
     z-index: 3;
-    width: 30vw;
-    height: 30vw;
-    border-radius: 30vw;
+    width: 35vw;
+    height: 35vw;
+    border-radius: 35svw;
     top: 35vw;
     left: 35vw;
     animation-duration: 9.5s;
@@ -129,7 +130,14 @@
       width: 6vw;
       height: 6vw;
       border-radius: 6vw;
-      transform: translate(-3vw, -3vw);
+      top: 2vw;
+      left: 2vw;
+
+      animation-name: OrbitCircle;
+      animation-duration: 9.5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-direction: reverse;
     }
   }
 
@@ -138,7 +146,7 @@
     width: 60vw;
     height: 60vw;
     border-radius: 60vw;
-    top: 20vw;
+    top: 22vw;
     left: 20vw;
     animation-duration: 19s;
     animation-direction: reverse;
@@ -149,54 +157,29 @@
       height: 18vw;
       border-radius: 18vw;
       transform: translate(-9vw, -9vw);
-    }
-  }
 
-  #plandiag {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: skew(0deg, 15deg);
-  }
-
-  #github {
-    z-index: 1;
-    width: 110vw;
-    height: 110vw;
-    border-radius: 110vw;
-    top: -10vw;
-    left: -10vw;
-    animation-name: OrbitCircle;
-    animation-duration: 60s;
-    animation-direction: reverse;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    section {
-      z-index: 2;
-      width: 8vw;
-      height: 8vw;
-      border-radius: 8vw;
-      top: calc(50% - 4vw);
-      left: -4vw;
+      animation-name: OrbitCircle;
+      animation-duration: 19s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
     }
   }
 
   @keyframes OrbitCircle {
-    from{
-        transform: rotateZ(0deg);
+    from {
+      transform: rotateZ(0deg);
     }
-    25%{
-        transform: rotateZ(90deg);
+    25% {
+      transform: rotateZ(90deg);
     }
-    50%{
-        transform: rotate(180deg);
+    50% {
+      transform: rotate(180deg);
     }
-    75%{
-        transform: rotate(270deg);
+    75% {
+      transform: rotate(270deg);
     }
-    to{
-        transform: rotate(360deg);
+    to {
+      transform: rotate(360deg);
     }
-}
+  }
 </style>
