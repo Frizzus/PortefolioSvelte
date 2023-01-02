@@ -82,6 +82,13 @@
 </main>
 <footer>
   <img src="img/footerWave.svg" alt="vague noire">
+  <address>
+    <ul>
+      <li>Mail: loiccanin.pro@gmail.com</li>
+      <a href="https://www.linkedin.com/in/lo%C3%AFc-canin-9b2aa11b4/" target="_blank" rel="noopener noreferrer"><li>Linkedin: a</li></a>
+      <li></li>
+    </ul>
+  </address>
 </footer>
 
 <style lang="scss">
@@ -419,10 +426,40 @@
   =============================================*/
   
   footer{
-    background: linear-gradient(80deg, white 30%, var(--primaryColor) 60%, var(--secondaryColor) 95%);
-    height: 400px;
+    position: relative;
+    background: linear-gradient(50deg, white 10%, var(--primaryColor) 45%, var(--secondaryColor) 95%);
+    height: 250px;
     overflow: hidden;
+
+    img{
+      width: 100%;
+    }
+
+    address{
+      font-size: 1rem;
+      font-family: "Signika Negative";
+      color: #1a1a1a;
+      position: absolute;
+      left: 5vw;
+      bottom: 10%;
+      outline: 1px solid #1a1a1a;
+      border-radius: 5px;
+      width: 20%;
+      height: 27%;
+      background-color: white;
+    }
+  }
+
+  @media screen and (min-width:800px){
+    footer{
+      height: 400px;
+    }
   }
   
+  @media screen and (min-width:1200px){
+    footer{
+      height: 500px;
+    }
+  }
   
 </style>
