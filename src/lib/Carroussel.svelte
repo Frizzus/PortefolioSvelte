@@ -115,9 +115,7 @@
         Dynamiser une page web statique avec <span class="bold">React</span>
       </li>
       <li>
-        Développer et Organiser un projet web avec <span class="bold"
-          >Svelte</span
-        >
+        Développer et Organiser un projet web avec <strong>Svelte</strong>
         et <span class="bold">SvelteKit</span>
       </li>
       <li>
@@ -281,7 +279,7 @@
     margin: 0;
   }
 
-  :global(.navDot:active) {
+  :global(.navDot:active){
     outline-color: var(--secondaryColor);
   }
 

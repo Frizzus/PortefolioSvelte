@@ -18,7 +18,7 @@
   <ColorPicker />
   <h1>Loïc Canin</h1>
   <hr />
-  <h2>Développeur Web FullStack créatif et innovant !</h2>
+  <h2>Développeur Web créatif et innovant !</h2>
   <div id="leftPart" />
   <div id="rightPart" />
 </header>
@@ -29,11 +29,11 @@
       <img src="img/avatar.svg" alt="mon avatar" />
       <p>
         Je cherche un stage du 27/02/23 au 03/05/23 pour ma formation de
-        Développeur web. Curieux et Innovant, j’accorde beaucoup d’importance à
+        <strong>développeur web</strong>. Curieux et <strong>innovant</strong>, j’accorde beaucoup d’importance à
         une ambiance de travail bienveillante et a l’entraide. J’aime relever
         des défis techniques et me surpasser pour un projet commun.
       </p>
-      <p>
+      <p>     
         Dû à mon côté innovant, j’ai toujours préféré chercher une ou plusieurs
         solutions plutôt que de faire uniquement le travail demandé, c’est pour
         moi une un bon moyen d’aiguiser mon esprit et un bon moyen de trouver
