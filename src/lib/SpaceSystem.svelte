@@ -4,21 +4,21 @@
 <!-- gérer les ombres des planêtes par rapport au soleil avec boxshadow inset et l'inspecteur google -->
 <div id="galaxy">
   <div class="orbit" id="sun" />
-  <a href="http://" target="_blank" rel="noreferrer"
+  <a href="https://www.linkedin.com/in/lo%C3%AFc-canin-9b2aa11b4/" target="_blank" rel="noreferrer"
     ><div class="orbit" id="linkedin">
       <section>
         <img src="img/linkedinIcon.svg" alt="linkedin" />
       </section>
     </div></a
   >
-  <a href="http://" target="_blank" rel="noreferrer"
+  <a href="https://github.com/Frizzus" target="_blank" rel="noreferrer"
     ><div class="orbit" id="github">
       <section>
         <img src="img/githubIcon.svg" alt="github" />
       </section>
     </div></a
   >
-  <a href="http://" target="_blank" rel="noreferrer"
+  <a href="mailto:loiccanin.pro@gmail.com" target="_blank" rel="noreferrer"
     ><div class="orbit" id="email">
       <section>
         <img src="img/gmailIcon.svg" alt="Gmail" />
