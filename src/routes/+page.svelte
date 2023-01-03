@@ -84,9 +84,11 @@
   <img src="img/footerWave.svg" alt="vague noire">
   <address>
     <ul>
-      <li>Mail: loiccanin.pro@gmail.com</li>
-      <a href="https://www.linkedin.com/in/lo%C3%AFc-canin-9b2aa11b4/" target="_blank" rel="noopener noreferrer"><li>Linkedin: a</li></a>
-      <li></li>
+      <li>Mail : <a href="mailto:loiccanin.pro@gmail.com">loiccanin.pro@gmail.com</a></li>
+      <li>Linkedin : <a href="https://www.linkedin.com/in/lo%C3%AFc-canin-9b2aa11b4/" target="_blank" rel="noopener noreferrer">Loïc Canin</a></li>
+      <li>Github : <a href="https://github.com/Frizzus" target="_blank" rel="noopener noreferrer">Frizzus</a></li>
+      <hr>
+      <li class="nopuce">&copy; Site web créé et apartenant à Loïc Canin.</li>
     </ul>
   </address>
 </footer>
@@ -436,29 +438,43 @@
     }
 
     address{
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-family: "Signika Negative";
       color: #1a1a1a;
       position: absolute;
-      left: 5vw;
-      bottom: 10%;
-      outline: 1px solid #1a1a1a;
-      border-radius: 5px;
-      width: 20%;
-      height: 27%;
-      background-color: white;
+      left: 2vw;
+      bottom: 5%;
+
+    }
+    li{
+      font-size: 1rem;
+      padding-right: 20px;
+    }
+    .nopuce{
+      list-style: none;
+      opacity: 50%;
+    }
+    a{
+      text-decoration: none;
+      color: var(--secondaryColor);
+    }
+    a:visited{
+      color: var(--secondaryColor);
+    }
+    a:hover{
+      color: #1a1a1a;
     }
   }
 
   @media screen and (min-width:800px){
     footer{
-      height: 400px;
+      height: 350px;
     }
   }
   
   @media screen and (min-width:1200px){
     footer{
-      height: 500px;
+      height: 450px;
     }
   }
   

@@ -258,6 +258,7 @@
       height: 10%;
       position: absolute;
       bottom: 0;
+      user-select: none;
     }
   }
 
