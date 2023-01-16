@@ -192,7 +192,7 @@ let view = document.querySelector("#colorView");
       >Changer de couleur primaire</button
     >
   </section>
-  <img src="img/palette-solid.svg" alt="plateau pour peinture" />
+  <img src="img/palette-solid.svg" alt="plateau pour peinture" />         
 </div>
 <div id="show">
   <img src="img/upArrow.svg" alt="arrow">

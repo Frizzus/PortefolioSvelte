@@ -15,6 +15,7 @@
      */
 
   export let items = [];
+  export let doReload = false;
   items = FetchForGallery(items);
   export let textColor = "white";
   export let fadeColor = "hsla(0, 0%, 2%, 40%)";
@@ -74,6 +75,12 @@
     }
     return lignes;
   }
+
+  onMount(() => {
+    if (doReload) {
+      location.reload();
+    }
+  });
 </script>
 
 <section>

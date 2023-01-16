@@ -10,6 +10,16 @@
 
   /** @type {import('./$types').ActionData} */  
   export let form;
+
+  let bd, needReload = false;
+
+  if (form?.success) {
+    bd = form.content.results;
+    needReload = true;
+  }
+  else{
+    bd = data.post.items.results;
+  }
   
 </script>
 
@@ -71,11 +81,9 @@
         </select>
         <input type="submit" value="Trier"/>
       </form>
-      {#if form?.success}
-        <Gallery items={form.content.results}/>
-      {:else}
-        <Gallery items={data.post.items.results}/>
-      {/if}
+      {#key bd}
+        <Gallery items={bd} doReload={needReload}/>
+      {/key}
       
     </div>
   </section>
